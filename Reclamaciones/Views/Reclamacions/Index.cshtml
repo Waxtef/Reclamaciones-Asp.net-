@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Reclamaciones.Models.Reclamacion>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Detalle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ubicacion_Campus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ubicacion_Edificio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha_Reclamacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Categoria1.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Observador1.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tipo_Reclamacion1.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario1.Nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Detalle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ubicacion_Campus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ubicacion_Edificio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha_Reclamacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categoria1.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Observador1.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tipo_Reclamacion1.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario1.Nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id_Reclamacion }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id_Reclamacion }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id_Reclamacion })
+        </td>
+    </tr>
+}
+
+</table>

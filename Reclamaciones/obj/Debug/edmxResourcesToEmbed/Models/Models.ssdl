@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_ReclamacionesModel2.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="Id_Categoria" />
+    </Key>
+    <Property Name="Id_Categoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Estado" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Tipo_Reclamacion" Type="int" />
+  </EntityType>
+  <EntityType Name="Observador">
+    <Key>
+      <PropertyRef Name="Id_Observador" />
+    </Key>
+    <Property Name="Id_Observador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Apellido" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Estado" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reclamacion">
+    <Key>
+      <PropertyRef Name="Id_Reclamacion" />
+    </Key>
+    <Property Name="Id_Reclamacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tipo_Reclamacion" Type="int" />
+    <Property Name="Categoria" Type="int" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Detalle" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Ubicacion_Campus" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Ubicacion_Edificio" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Observador" Type="int" />
+    <Property Name="Usuario" Type="int" />
+    <Property Name="Fecha_Reclamacion" Type="datetime" Nullable="false" />
+    <Property Name="Estado" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tipo_Reclamacion">
+    <Key>
+      <PropertyRef Name="Id_Tipo" />
+    </Key>
+    <Property Name="Id_Tipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Id_Usuario" />
+    </Key>
+    <Property Name="Id_Usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Apellido" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Pass" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Rol" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Estado" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Categoria__Tipo___145C0A3F">
+    <End Role="Tipo_Reclamacion" Type="Self.Tipo_Reclamacion" Multiplicity="0..1" />
+    <End Role="Categoria" Type="Self.Categoria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tipo_Reclamacion">
+        <PropertyRef Name="Id_Tipo" />
+      </Principal>
+      <Dependent Role="Categoria">
+        <PropertyRef Name="Tipo_Reclamacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reclamaci__Categ__37A5467C">
+    <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+    <End Role="Reclamacion" Type="Self.Reclamacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="Id_Categoria" />
+      </Principal>
+      <Dependent Role="Reclamacion">
+        <PropertyRef Name="Categoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reclamaci__Obser__38996AB5">
+    <End Role="Observador" Type="Self.Observador" Multiplicity="0..1" />
+    <End Role="Reclamacion" Type="Self.Reclamacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Observador">
+        <PropertyRef Name="Id_Observador" />
+      </Principal>
+      <Dependent Role="Reclamacion">
+        <PropertyRef Name="Observador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reclamaci__Tipo___36B12243">
+    <End Role="Tipo_Reclamacion" Type="Self.Tipo_Reclamacion" Multiplicity="0..1" />
+    <End Role="Reclamacion" Type="Self.Reclamacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tipo_Reclamacion">
+        <PropertyRef Name="Id_Tipo" />
+      </Principal>
+      <Dependent Role="Reclamacion">
+        <PropertyRef Name="Tipo_Reclamacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reclamaci__Usuar__398D8EEE">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="Reclamacion" Type="Self.Reclamacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id_Usuario" />
+      </Principal>
+      <Dependent Role="Reclamacion">
+        <PropertyRef Name="Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_ReclamacionesModel2StoreContainer">
+    <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Observador" EntityType="Self.Observador" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reclamacion" EntityType="Self.Reclamacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tipo_Reclamacion" EntityType="Self.Tipo_Reclamacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Categoria__Tipo___145C0A3F" Association="Self.FK__Categoria__Tipo___145C0A3F">
+      <End Role="Tipo_Reclamacion" EntitySet="Tipo_Reclamacion" />
+      <End Role="Categoria" EntitySet="Categoria" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reclamaci__Categ__37A5467C" Association="Self.FK__Reclamaci__Categ__37A5467C">
+      <End Role="Categoria" EntitySet="Categoria" />
+      <End Role="Reclamacion" EntitySet="Reclamacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reclamaci__Obser__38996AB5" Association="Self.FK__Reclamaci__Obser__38996AB5">
+      <End Role="Observador" EntitySet="Observador" />
+      <End Role="Reclamacion" EntitySet="Reclamacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reclamaci__Tipo___36B12243" Association="Self.FK__Reclamaci__Tipo___36B12243">
+      <End Role="Tipo_Reclamacion" EntitySet="Tipo_Reclamacion" />
+      <End Role="Reclamacion" EntitySet="Reclamacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reclamaci__Usuar__398D8EEE" Association="Self.FK__Reclamaci__Usuar__398D8EEE">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Reclamacion" EntitySet="Reclamacion" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

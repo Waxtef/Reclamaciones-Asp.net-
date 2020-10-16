@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_ReclamacionesModel2StoreContainer" CdmEntityContainer="DB_ReclamacionesEntities2">
+    <EntitySetMapping Name="Categorias">
+      <EntityTypeMapping TypeName="DB_ReclamacionesModel2.Categoria">
+        <MappingFragment StoreEntitySet="Categoria">
+          <ScalarProperty Name="Id_Categoria" ColumnName="Id_Categoria" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Tipo_Reclamacion" ColumnName="Tipo_Reclamacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Observadors">
+      <EntityTypeMapping TypeName="DB_ReclamacionesModel2.Observador">
+        <MappingFragment StoreEntitySet="Observador">
+          <ScalarProperty Name="Id_Observador" ColumnName="Id_Observador" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reclamacions">
+      <EntityTypeMapping TypeName="DB_ReclamacionesModel2.Reclamacion">
+        <MappingFragment StoreEntitySet="Reclamacion">
+          <ScalarProperty Name="Id_Reclamacion" ColumnName="Id_Reclamacion" />
+          <ScalarProperty Name="Tipo_Reclamacion" ColumnName="Tipo_Reclamacion" />
+          <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+          <ScalarProperty Name="Ubicacion_Campus" ColumnName="Ubicacion_Campus" />
+          <ScalarProperty Name="Ubicacion_Edificio" ColumnName="Ubicacion_Edificio" />
+          <ScalarProperty Name="Observador" ColumnName="Observador" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="Fecha_Reclamacion" ColumnName="Fecha_Reclamacion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tipo_Reclamacion">
+      <EntityTypeMapping TypeName="DB_ReclamacionesModel2.Tipo_Reclamacion">
+        <MappingFragment StoreEntitySet="Tipo_Reclamacion">
+          <ScalarProperty Name="Id_Tipo" ColumnName="Id_Tipo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="DB_ReclamacionesModel2.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Pass" ColumnName="Pass" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

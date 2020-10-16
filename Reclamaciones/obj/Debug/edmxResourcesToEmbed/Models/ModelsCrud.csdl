@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_ReclamacionesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="Id_Categoria" />
+    </Key>
+    <Property Name="Id_Categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Tipo_Reclamacion" Type="Int32" />
+    <NavigationProperty Name="Tipo_Reclamacion1" Relationship="Self.FK__Categoria__Tipo___145C0A3F" FromRole="Categoria" ToRole="Tipo_Reclamacion" />
+    <NavigationProperty Name="Reclamacions" Relationship="Self.FK__Reclamaci__Categ__37A5467C" FromRole="Categoria" ToRole="Reclamacion" />
+  </EntityType>
+  <EntityType Name="Observador">
+    <Key>
+      <PropertyRef Name="Id_Observador" />
+    </Key>
+    <Property Name="Id_Observador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Reclamacions" Relationship="Self.FK__Reclamaci__Obser__38996AB5" FromRole="Observador" ToRole="Reclamacion" />
+  </EntityType>
+  <EntityType Name="Reclamacion">
+    <Key>
+      <PropertyRef Name="Id_Reclamacion" />
+    </Key>
+    <Property Name="Id_Reclamacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Tipo_Reclamacion" Type="Int32" />
+    <Property Name="Categoria" Type="Int32" />
+    <Property Name="Descripcion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Detalle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Ubicacion_Campus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Ubicacion_Edificio" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Observador" Type="Int32" />
+    <Property Name="Usuario" Type="Int32" />
+    <Property Name="Fecha_Reclamacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Categoria1" Relationship="Self.FK__Reclamaci__Categ__37A5467C" FromRole="Reclamacion" ToRole="Categoria" />
+    <NavigationProperty Name="Observador1" Relationship="Self.FK__Reclamaci__Obser__38996AB5" FromRole="Reclamacion" ToRole="Observador" />
+    <NavigationProperty Name="Tipo_Reclamacion1" Relationship="Self.FK__Reclamaci__Tipo___36B12243" FromRole="Reclamacion" ToRole="Tipo_Reclamacion" />
+    <NavigationProperty Name="Usuario1" Relationship="Self.FK__Reclamaci__Usuar__398D8EEE" FromRole="Reclamacion" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="Tipo_Reclamacion">
+    <Key>
+      <PropertyRef Name="Id_Tipo" />
+    </Key>
+    <Property Name="Id_Tipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Categorias" Relationship="Self.FK__Categoria__Tipo___145C0A3F" FromRole="Tipo_Reclamacion" ToRole="Categoria" />
+    <NavigationProperty Name="Reclamacions" Relationship="Self.FK__Reclamaci__Tipo___36B12243" FromRole="Tipo_Reclamacion" ToRole="Reclamacion" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Id_Usuario" />
+    </Key>
+    <Property Name="Id_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Pass" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Rol" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Reclamacions" Relationship="Self.FK__Reclamaci__Usuar__398D8EEE" FromRole="Usuario" ToRole="Reclamacion" />
+  </EntityType>
+  <Association Name="FK__Categoria__Tipo___145C0A3F">
+    <End Role="Tipo_Reclamacion" Type="Self.Tipo_Reclamacion" Multiplicity="0..1" />
+    <End Role="Categoria" Type="Self.Categoria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tipo_Reclamacion">
+        <PropertyRef Name="Id_Tipo" />
+      </Principal>
+      <Dependent Role="Categoria">
+        <PropertyRef Name="Tipo_Reclamacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reclamaci__Categ__37A5467C">
+    <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+    <End Role="Reclamacion" Type="Self.Reclamacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="Id_Categoria" />
+      </Principal>
+      <Dependent Role="Reclamacion">
+        <PropertyRef Name="Categoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reclamaci__Obser__38996AB5">
+    <End Role="Observador" Type="Self.Observador" Multiplicity="0..1" />
+    <End Role="Reclamacion" Type="Self.Reclamacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Observador">
+        <PropertyRef Name="Id_Observador" />
+      </Principal>
+      <Dependent Role="Reclamacion">
+        <PropertyRef Name="Observador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reclamaci__Tipo___36B12243">
+    <End Role="Tipo_Reclamacion" Type="Self.Tipo_Reclamacion" Multiplicity="0..1" />
+    <End Role="Reclamacion" Type="Self.Reclamacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tipo_Reclamacion">
+        <PropertyRef Name="Id_Tipo" />
+      </Principal>
+      <Dependent Role="Reclamacion">
+        <PropertyRef Name="Tipo_Reclamacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reclamaci__Usuar__398D8EEE">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="Reclamacion" Type="Self.Reclamacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id_Usuario" />
+      </Principal>
+      <Dependent Role="Reclamacion">
+        <PropertyRef Name="Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_ReclamacionesEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categorias" EntityType="Self.Categoria" />
+    <EntitySet Name="Observadors" EntityType="Self.Observador" />
+    <EntitySet Name="Reclamacions" EntityType="Self.Reclamacion" />
+    <EntitySet Name="Tipo_Reclamacion" EntityType="Self.Tipo_Reclamacion" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+    <AssociationSet Name="FK__Categoria__Tipo___145C0A3F" Association="Self.FK__Categoria__Tipo___145C0A3F">
+      <End Role="Tipo_Reclamacion" EntitySet="Tipo_Reclamacion" />
+      <End Role="Categoria" EntitySet="Categorias" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reclamaci__Categ__37A5467C" Association="Self.FK__Reclamaci__Categ__37A5467C">
+      <End Role="Categoria" EntitySet="Categorias" />
+      <End Role="Reclamacion" EntitySet="Reclamacions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reclamaci__Obser__38996AB5" Association="Self.FK__Reclamaci__Obser__38996AB5">
+      <End Role="Observador" EntitySet="Observadors" />
+      <End Role="Reclamacion" EntitySet="Reclamacions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reclamaci__Tipo___36B12243" Association="Self.FK__Reclamaci__Tipo___36B12243">
+      <End Role="Tipo_Reclamacion" EntitySet="Tipo_Reclamacion" />
+      <End Role="Reclamacion" EntitySet="Reclamacions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reclamaci__Usuar__398D8EEE" Association="Self.FK__Reclamaci__Usuar__398D8EEE">
+      <End Role="Usuario" EntitySet="Usuarios" />
+      <End Role="Reclamacion" EntitySet="Reclamacions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
