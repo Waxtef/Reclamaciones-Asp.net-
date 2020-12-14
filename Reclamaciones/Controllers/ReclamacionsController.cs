@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -131,7 +132,49 @@ namespace Reclamaciones.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        static string crit = "";
+        public ActionResult exportaExcel()
+        {
+            
+            string filename = "Reclamacion.csv";
+            string filepath = Path.GetTempPath() + filename;
+            StreamWriter sw = new StreamWriter(filepath);
+            bool state = true;
+            if (!String.IsNullOrEmpty(crit))
+            {
+                if (crit.ToUpper() == "ACTIVO")
+                {
+                    state = true;
+                }
+                else if (crit.ToUpper() == "INACTIVO")
+                {
+                    state = false;
+                }
+            }
 
+
+            sw.WriteLine("Id_Reclamacion, Tipo_Reclamacion, Categoria, Descripcion, Detalle, Ubicacion_Campus, Ubicacion_Edificio, Observador   , Usuario, Fecha_Reclamacion, Estado"); //Encabezado 
+            foreach (var i in db.Reclamacions.Where(p => crit == null || p.Observador1.Nombre.Contains(crit) || p.Categoria1.Descripcion.Contains(crit) ||
+                        p.Usuario1.Nombre.Contains(crit) || p.Fecha_Reclamacion.ToString().Contains(crit) ||
+                        p.Categoria1.Descripcion.Contains(crit)))
+            {
+                sw.WriteLine(i.Id_Reclamacion.ToString() + "," + i.Tipo_Reclamacion.ToString() + "," + i.Categoria + "," + i.Descripcion + "," + i.Detalle + "," + i.Ubicacion_Campus + "," + i.Ubicacion_Edificio + "," + i.Observador + "," + i.Usuario + "," + i.Fecha_Reclamacion.Date + "," + i.Estado);
+            }
+            sw.Close();
+
+            byte[] filedata = System.IO.File.ReadAllBytes(filepath);
+            string contentType = MimeMapping.GetMimeMapping(filepath);
+
+            var cd = new System.Net.Mime.ContentDisposition
+            {
+                FileName = filename,
+                Inline = false,
+            };
+
+            Response.AppendHeader("Content-Disposition", cd.ToString());
+
+            return File(filedata, contentType);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
